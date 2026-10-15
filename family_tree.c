@@ -30,6 +30,31 @@ void read_person_info(const char *role, char *name_out, int *age_out)
     scanf("%d", age_out);
 }
 
+void link_parents(Person *child, Person *father, Person *mother)
+{
+    child->father = father;
+    child->mother = mother;
+}
+
+void print_family_relationships(const Person *me)
+{
+    printf("1. Yourself:\n");
+    printf(" - Name: %s | Age: %d\n", me->name, me->age);
+
+    printf("2. Parents:\n");
+    printf(" - Name: %s | Age: %d\n", me->mother->name, me->mother->age);
+    printf(" - Name: %s | Age: %d\n", me->father->name, me->father->age);
+
+    printf("3. Paternal Grandparents\n");
+    printf(" - Name: %s | Age: %d\n", me->father->father->name, me->father->father->age);
+    printf(" - Name: %s | Age: %d\n", me->father->mother->name, me->father->mother->age);
+
+    printf("4. Maternal Grandparents\n");
+    printf(" - Name: %s | Age: %d\n", me->mother->father->name, me->mother->father->age);
+    printf(" - Name: %s | Age: %d\n", me->mother->mother->name, me->mother->mother->age);
+    
+}
+
 int main(void)
 {
 int age;
@@ -50,14 +75,15 @@ Person* dada = create_person(name, age);
 read_person_info("dadi", name, &age);
 Person* dadi = create_person(name, age);
 
+link_parents(me, dad, mom);
+link_parents(dad, dada, dadi);
+link_parents(mom, nana, nani);
+
+print_family_relationships(me);
+
 return 0;
 }
 
 
 
-void link_parents(Person *child, Person *father, Person *mother)
-{
-    child->father = father;
-    child->mother = mother;
-}
 
