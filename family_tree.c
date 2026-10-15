@@ -55,6 +55,13 @@ void print_family_relationships(const Person *me)
     
 }
 
+void free_family_tree(Person *people[], int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        free(people[i]);
+    }
+}
 int main(void)
 {
 int age;
@@ -81,6 +88,8 @@ link_parents(mom, nana, nani);
 
 print_family_relationships(me);
 
+Person *people[7] = {me, mom, dad, nana, nani, dada, dadi};
+free_family_tree(people, 7);
 return 0;
 }
 
